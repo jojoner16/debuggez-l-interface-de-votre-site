@@ -1,32 +1,41 @@
-const $addSensorForm = document.querySelector('.add-sensor-form')
+const $addSensorForm = document.querySelector(".add-sensor-form");
 
-const $latInput = document.querySelector('.lat-input')
-const $lngInput = document.querySelector('.lng-input')
-
+const $latInput = document.querySelector(".lat-input");
+const $lngInput = document.querySelector(".lng-input");
 
 const handleGeolocation = () => {
-    const onSuccess = (position) => {
-        if (position && position.coords) {
-            $latInput.value = position.coords.latitude
-            $lngInput.value = position.coords.longitude
-        }
-    }
+  const onSuccess = (position) => {
+    console.log("=====");
+    console.log("success");
+    console.log(position);
+    console.log("=====");
 
-    const onError = error => {}
-
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(onError, onSuccess)
+    if (position && position.coords) {
+      $latInput.value = position.coords.latitude;
+      $lngInput.value = position.coords.longitude;
     }
-}
+  };
+
+  const onError = (error) => {
+    console.log("+++++");
+    console.log("error");
+    console.log(error);
+    console.log("+++++");
+  };
+
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  }
+};
 
 const main = () => {
-    handleGeolocation()
+  handleGeolocation();
 
-    $addSensorForm.addEventListener('submit', e => {
-        e.preventDefault()
-        
-        console.log("===")
-    })
-}
+  $addSensorForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-main()
+    console.log("===");
+  });
+};
+
+main();
